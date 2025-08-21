@@ -1,0 +1,113 @@
+@import 'react-toastify/dist/ReactToastify.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: Inter, system-ui, sans-serif;
+  }
+  
+  body {
+    background-color: #fafafa;
+    color: #1f2937;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  .gradient-bg {
+    background: linear-gradient(135deg, #5b21b6 0%, #8b5cf6 100%);
+  }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, #5b21b6 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .glass-effect {
+    backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .task-card {
+    transition: all 0.2s ease-out;
+  }
+  
+  .task-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(91, 33, 182, 0.15);
+  }
+  
+  .category-pill {
+    transition: all 0.15s ease-out;
+  }
+  
+  .category-pill:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.1);
+  }
+  
+  .completion-animation {
+    animation: celebrate 0.6s ease-out;
+  }
+  
+  @keyframes celebrate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  
+  .priority-high {
+    color: #ef4444;
+  }
+  
+  .priority-medium {
+    color: #f59e0b;
+  }
+  
+  .priority-low {
+    color: #10b981;
+  }
+}
+
+/* Toast Customization */
+.Toastify__toast-container {
+  top: 1rem;
+  right: 1rem;
+  width: auto;
+  min-width: 320px;
+  z-index: 9999;
+}
+
+.Toastify__toast {
+  border-radius: 12px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px;
+  padding: 16px 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.Toastify__toast--success {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.95) 100%);
+  color: white;
+}
+
+.Toastify__toast--error {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.95) 0%, rgba(220, 38, 38, 0.95) 100%);
+  color: white;
+}
+
+.Toastify__toast--info {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.95) 0%, rgba(37, 99, 235, 0.95) 100%);
+  color: white;
+}
+
+.Toastify__progress-bar {
+  background: rgba(255, 255, 255, 0.3);
+}
