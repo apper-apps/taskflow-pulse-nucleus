@@ -1,4 +1,54 @@
-import categoriesData from "@/services/mockData/categories.json";
+// Mock categories data - inline to avoid missing file error
+const categoriesData = [
+  {
+    Id: 1,
+    name: "Work",
+    color: "#3B82F6",
+    description: "Professional tasks and projects"
+  },
+  {
+    Id: 2,
+    name: "Personal",
+    color: "#10B981",
+    description: "Personal activities and errands"
+  },
+  {
+    Id: 3,
+    name: "Health & Fitness",
+    color: "#F59E0B",
+    description: "Exercise, health, and wellness tasks"
+  },
+  {
+    Id: 4,
+    name: "Learning",
+    color: "#8B5CF6",
+    description: "Educational content and skill development"
+  },
+  {
+    Id: 5,
+    name: "Finance",
+    color: "#EF4444",
+    description: "Budget planning and financial tasks"
+  },
+  {
+    Id: 6,
+    name: "Home",
+    color: "#6366F1",
+    description: "Household chores and maintenance"
+  },
+  {
+    Id: 7,
+    name: "Social",
+    color: "#EC4899",
+    description: "Social activities and relationships"
+  },
+  {
+    Id: 8,
+    name: "Travel",
+    color: "#06B6D4",
+    description: "Trip planning and travel arrangements"
+  }
+];
 
 let categories = [...categoriesData];
 
