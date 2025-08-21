@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { AuthContext } from "../../App";
+import ApperIcon from "@/components/ApperIcon";
 import TaskHeader from "@/components/organisms/TaskHeader";
-import TaskList from "@/components/organisms/TaskList";
-import TaskForm from "@/components/organisms/TaskForm";
 import CategorySidebar from "@/components/organisms/CategorySidebar";
+import TaskForm from "@/components/organisms/TaskForm";
+import TaskList from "@/components/organisms/TaskList";
+import Button from "@/components/atoms/Button";
 import { cn } from "@/utils/cn";
 
 const TasksPage = () => {
+  const { logout } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.user);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedPriority, setSelectedPriority] = useState("");
@@ -47,24 +53,45 @@ const TasksPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="flex h-screen bg-background overflow-hidden">
+      {/* Header with user info and logout */}
+      <div className="absolute top-4 right-4 z-50 flex items-center gap-4">
+        {user && (
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <ApperIcon name="User" className="h-4 w-4" />
+            <span>{user.firstName} {user.lastName}</span>
+          </div>
+        )}
+        <Button onClick={logout} variant="ghost" size="sm">
+          <ApperIcon name="LogOut" className="h-4 w-4 mr-2" />
+          Logout
+        </Button>
+      </div>
+
       {/* Sidebar */}
-      <CategorySidebar
-        selectedCategory={selectedCategory}
-        onCategorySelect={handleCategorySelect}
-        isMobileOpen={isMobileSidebarOpen}
-        onMobileClose={() => setIsMobileSidebarOpen(false)}
-      />
+      <div className={cn(
+        "fixed inset-y-0 left-0 z-40 w-80 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0",
+        isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"
+      )}>
+        <CategorySidebar
+          selectedCategory={selectedCategory}
+          onCategorySelect={handleCategorySelect}
+          className="h-full p-6"
+        />
+      </div>
+
+      {/* Overlay for mobile */}
+      {isMobileSidebarOpen && (
+        <div 
+          className="fixed inset-0 z-30 bg-black bg-opacity-50 lg:hidden"
+          onClick={() => setIsMobileSidebarOpen(false)}
+        />
+      )}
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <main className="flex-1 p-6 lg:p-8 max-w-5xl mx-auto w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-8"
-          >
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 overflow-auto">
+          <div className="container mx-auto px-6 py-8 max-w-4xl">
             <TaskHeader
               searchQuery={searchQuery}
               onSearchChange={setSearchQuery}
@@ -74,6 +101,7 @@ const TasksPage = () => {
               onStatusFilterChange={setStatusFilter}
               selectedPriority={selectedPriority}
               onPriorityFilterChange={setSelectedPriority}
+              className="mb-8"
             />
 
             <TaskList
@@ -85,17 +113,18 @@ const TasksPage = () => {
               onEditTask={handleEditTask}
               refreshTrigger={refreshTrigger}
             />
-          </motion.div>
-        </main>
+          </div>
+        </div>
       </div>
 
-      {/* Task form modal */}
-      <TaskForm
-        task={editingTask}
-        onSuccess={handleTaskFormSuccess}
-        onCancel={handleTaskFormCancel}
-        isOpen={showTaskForm}
-      />
+      {/* Task Form Modal */}
+      {showTaskForm && (
+        <TaskForm
+          task={editingTask}
+          onSuccess={handleTaskFormSuccess}
+          onCancel={handleTaskFormCancel}
+        />
+      )}
     </div>
   );
 };
