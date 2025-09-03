@@ -21,12 +21,13 @@ export const taskService = {
     const maxId = Math.max(...tasks.map(t => t.Id), 0);
     const maxOrder = Math.max(...tasks.map(t => t.order), 0);
     
-    const newTask = {
+const newTask = {
       Id: maxId + 1,
       title: taskData.title,
       description: taskData.description || "",
       categoryId: taskData.categoryId,
       priority: taskData.priority || "medium",
+      urgency: taskData.urgency || "medium",
       dueDate: taskData.dueDate || null,
       completed: false,
       completedAt: null,
@@ -44,7 +45,7 @@ export const taskService = {
     
     if (index === -1) return null;
     
-    const updatedTask = {
+const updatedTask = {
       ...tasks[index],
       ...updateData,
       Id: parseInt(id)

@@ -23,10 +23,18 @@ const TaskHeader = ({
   ];
 
   const priorityOptions = [
-    { value: "", label: "All Priority" },
+{ value: "", label: "All Priority" },
     { value: "high", label: "High", color: "bg-red-100 text-red-700" },
     { value: "medium", label: "Medium", color: "bg-yellow-100 text-yellow-700" },
     { value: "low", label: "Low", color: "bg-green-100 text-green-700" }
+  ];
+
+  const urgencyOptions = [
+    { value: "", label: "All Urgency" },
+    { value: "critical", label: "Critical", color: "bg-purple-100 text-purple-800" },
+    { value: "high", label: "High", color: "bg-purple-100 text-purple-700" },
+    { value: "medium", label: "Medium", color: "bg-pink-100 text-pink-700" },
+    { value: "low", label: "Low", color: "bg-pink-100 text-pink-600" }
   ];
 
   return (
@@ -99,7 +107,7 @@ const TaskHeader = ({
               )}
             >
               {option.value && (
-                <div className={cn("w-2 h-2 rounded-full mr-2 inline-block",
+<div className={cn("w-2 h-2 rounded-full mr-2 inline-block",
                   option.value === "high" ? "bg-red-500" :
                   option.value === "medium" ? "bg-yellow-500" : 
                   option.value === "low" ? "bg-green-500" : ""

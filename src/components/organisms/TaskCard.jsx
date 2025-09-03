@@ -24,11 +24,21 @@ const TaskCard = ({
     return format(date, "MMM dd");
   };
 
-  const getPriorityColor = (priority) => {
+const getPriorityColor = (priority) => {
     switch (priority) {
       case "high": return "text-red-600";
       case "medium": return "text-yellow-600";
       case "low": return "text-green-600";
+      default: return "text-gray-600";
+    }
+  };
+
+  const getUrgencyColor = (urgency) => {
+    switch (urgency) {
+      case "critical": return "text-purple-700";
+      case "high": return "text-purple-600";
+      case "medium": return "text-pink-600";
+      case "low": return "text-pink-500";
       default: return "text-gray-600";
     }
   };
@@ -80,6 +90,17 @@ const TaskCard = ({
             </div>
             
             <div className="flex items-center gap-2 flex-shrink-0">
+{task.urgency && (
+                <Badge variant={task.urgency === "critical" ? "critical" : task.urgency} size="sm">
+                  <div className={cn("w-2 h-2 rounded-full mr-1", 
+                    task.urgency === "critical" ? "bg-purple-700" :
+                    task.urgency === "high" ? "bg-purple-600" :
+                    task.urgency === "medium" ? "bg-pink-600" : "bg-pink-500"
+                  )} />
+                  {task.urgency}
+                </Badge>
+              )}
+              
               <Badge variant={task.priority} size="sm">
                 <div className={cn("w-2 h-2 rounded-full mr-1", 
                   task.priority === "high" ? "bg-red-500" :
